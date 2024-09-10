@@ -16,4 +16,9 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class One_Talon_Subsystem_Constants {
+    public static final int kMotorPort = 0;
+    public static final double kHighConstraint = 0.7;
+    public static final double kLowConstraint = -0.7;
+  }
 }
