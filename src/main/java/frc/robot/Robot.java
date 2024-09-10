@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.OperatorConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,9 +20,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private Compressor m_compressor;
   private RobotContainer m_robotContainer;
-
+  private boolean m_compressorState;
+  private XboxController m_xboxController;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,6 +33,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    m_compressorState = true;
+    m_xboxController = new XboxController(OperatorConstants.kDriverControllerPort);
   }
 
   /**
@@ -81,7 +89,22 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // if full
+    // if not full
+    if (!m_compressor.getPressureSwitchValue() && m_xboxController.getRawButtonPressed(OperatorConstants.kCompressorButton)) {
+      m_compressorState = !m_compressorState;
+      if (m_compressorState)
+        m_compressor.enableDigital();
+      else
+        m_compressor.disable();
+    } else if(m_compressor.getPressureSwitchValue() && !m_compressorState) {
+      m_compressor.disable();
+    }
+    else if (!m_compressor.getPressureSwitchValue()){
+      m_compressor.enableDigital();
+    }
+  }
 
   @Override
   public void testInit() {

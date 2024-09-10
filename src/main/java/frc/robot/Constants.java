@@ -19,6 +19,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
 
     public static final int kChangeStatePneumaticSubsystemButton = XboxController.Button.kB.value;
+    public static final int kCompressorButton = XboxController.Button.kLeftStick.value;
   }
 
   public static class PneumaticSubsystemConstants {
