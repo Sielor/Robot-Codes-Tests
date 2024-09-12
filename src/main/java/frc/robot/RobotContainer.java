@@ -43,7 +43,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     JoystickButton changeStatePneumatic = new JoystickButton(m_driverController, OperatorConstants.kChangeStatePneumaticSubsystemButton);
-    changeStatePneumatic.onTrue(new ChangeStatePneumatic(m_PneumaticSubsystem));
+    changeStatePneumatic.onTrue(new ChangeStatePneumatic());
   }
 
   /**

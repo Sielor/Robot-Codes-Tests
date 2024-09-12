@@ -12,9 +12,9 @@ public class ChangeStatePneumatic extends Command {
   PneumaticSubsystem m_PneumaticSubsystem;
 
   /** Creates a new ChangeStatePneumatic. */
-  public ChangeStatePneumatic(PneumaticSubsystem pneumaticSubsystem) {
-    m_PneumaticSubsystem = pneumaticSubsystem;
+  public ChangeStatePneumatic() {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_PneumaticSubsystem = PneumaticSubsystem.getInstance();
     addRequirements(m_PneumaticSubsystem);
   }
 

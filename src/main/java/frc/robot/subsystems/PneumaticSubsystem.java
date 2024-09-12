@@ -19,6 +19,7 @@ public class PneumaticSubsystem extends SubsystemBase {
   /** Creates a new PneumaticSubsystem. */
   private PneumaticSubsystem() {
     m_DoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticSubsystemConstants.kForwardPortChannel, PneumaticSubsystemConstants.kReversePortChannel);
+    m_DoubleSolenoid.set(Value.kForward);
   }
 
   //Singleton Implementation
@@ -36,13 +37,10 @@ public class PneumaticSubsystem extends SubsystemBase {
     return false;
   }
 
-  //The method will change the value of the pneumatic subsytem to the other
-  //for example: if the state is kForward it will change to kReverse
+  //The method will toggle the value of the solenoid
+  //for example: if the value is kForward it will change to kReverse
   public void changeState(){
-    if (m_DoubleSolenoid.get() == Value.kForward)
-      m_DoubleSolenoid.set(Value.kReverse);
-    else
-      m_DoubleSolenoid.set(Value.kForward);
+    m_DoubleSolenoid.toggle();
   }
 
 
